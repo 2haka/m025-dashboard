@@ -1,0 +1,13 @@
+{
+  "name": "mock-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Simulated helmets implementing docs/contract.md, so the dashboard can be built before the real backend exists",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}
