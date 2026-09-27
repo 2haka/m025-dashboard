@@ -60,7 +60,7 @@ function emitStatus(dev) {
     helmetState: dev.helmetState,
     toolState: dev.helmetState === 'WORN' ? 'ENABLED' : 'DISABLED',
     tempC: dev.tempC,
-    deviceTs: now,
+    deviceTs: null, // real firmware sends only '1' / '0' — no device timestamp
     serverTs: now, // "received & validated" instant — start of the Spec 3 measurement
   };
   latestStatus.set(dev.deviceId, status);
@@ -76,7 +76,7 @@ function recordViolation(dev, eventType) {
     toolId: dev.toolId,
     eventType,
     action: 'TOOL_DISABLED',
-    deviceTs: now,
+    deviceTs: null,
     serverTs: now,
   };
   violations.unshift(v);

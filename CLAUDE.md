@@ -45,7 +45,8 @@ ESP32 ──MQTT──► Broker ──► Backend ──WebSocket──► Dash
 2. No message from a device for `VITE_STALE_MS` (3 s) → `LINK_LOST`, tool `UNKNOWN`.
 3. Invalid / malformed messages are dropped and counted, never rendered.
 4. Missing or stale data is **never** shown as `WORN` or `ENABLED`.
-5. `seq <= lastSeq` is ignored, except lower `seq` with newer `serverTs` (device reboot).
+5. `seq` comes from the backend (firmware sends only '1'/'0'). `seq <= lastSeq` is ignored, except
+   lower `seq` with newer `serverTs` (backend restarted). `deviceTs` may be `null`.
 6. Every state has text + icon, not color only.
 
 ## PPR targets (ICS / Khalid)

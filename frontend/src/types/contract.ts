@@ -20,7 +20,8 @@ export interface StatusMessage {
   toolState: ToolState;
   /** Forehead skin temperature (non-medical). null = no valid reading. */
   tempC: number | null;
-  deviceTs: string;
+  /** Device-side time. null: current firmware sends no timestamp (payload is one char). */
+  deviceTs: string | null;
   /** Backend receive-and-validate time. Start point of the Spec 3 measurement. */
   serverTs: string;
 }
@@ -32,7 +33,7 @@ export interface Violation {
   toolId: string;
   eventType: EventType;
   action: Action;
-  deviceTs: string;
+  deviceTs: string | null;
   serverTs: string;
 }
 
@@ -64,7 +65,7 @@ export function isStatusMessage(x: unknown): x is StatusMessage {
     oneOf(HELMET_STATES, x.helmetState) &&
     oneOf(TOOL_STATES, x.toolState) &&
     (x.tempC === null || typeof x.tempC === 'number') &&
-    isIso(x.deviceTs) &&
+    (x.deviceTs === null || isIso(x.deviceTs)) &&
     isIso(x.serverTs)
   );
 }
@@ -78,7 +79,7 @@ export function isViolation(x: unknown): x is Violation {
     isStr(x.toolId) &&
     oneOf(EVENT_TYPES, x.eventType) &&
     oneOf(ACTIONS, x.action) &&
-    isIso(x.deviceTs) &&
+    (x.deviceTs === null || isIso(x.deviceTs)) &&
     isIso(x.serverTs)
   );
 }

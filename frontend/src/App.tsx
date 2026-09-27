@@ -1,5 +1,7 @@
+import { useMemo } from 'react';
 import { ConnectionPill } from './components/ConnectionPill';
 import { HelmetCard } from './components/HelmetCard';
+import { Is1TrialPanel } from './components/Is1TrialPanel';
 import { LatencyPanel } from './components/LatencyPanel';
 import { SummaryBar } from './components/SummaryBar';
 import { ViolationsTable } from './components/ViolationsTable';
@@ -10,8 +12,15 @@ export default function App() {
   const { devices, violations, invalidCount, connection, loadError, now } = useLiveDashboard();
   const entries = Object.values(devices).sort((a, b) => a.last.deviceId.localeCompare(b.last.deviceId));
 
+  // What the cards display, per helmet. Shared with the IS1 panel so trials judge the same state.
+  const displayed = useMemo(() => {
+    const out: Record<string, HelmetState> = {};
+    for (const e of Object.values(devices)) out[e.last.deviceId] = effectiveState(e, now, connection).helmet;
+    return out;
+  }, [devices, now, connection]);
+
   const counts: Record<HelmetState, number> = { WORN: 0, REMOVED: 0, LINK_LOST: 0, UNKNOWN: 0 };
-  for (const e of entries) counts[effectiveState(e, now, connection).helmet] += 1;
+  for (const state of Object.values(displayed)) counts[state] += 1;
 
   return (
     <div className="app">
@@ -58,6 +67,7 @@ export default function App() {
 
         <ViolationsTable items={violations} />
         <LatencyPanel />
+        <Is1TrialPanel displayed={displayed} />
       </main>
 
       <footer className="footer">

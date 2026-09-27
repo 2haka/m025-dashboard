@@ -168,6 +168,8 @@ button:focus-visible, select:focus-visible { outline: 2px solid var(--accent); o
 }
 
 .stats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin: 0; }
+.trial-controls { display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.trial-table { margin-top: 14px; }
 .stats dd { font-size: 18px; }
 
 /* ---------- table */

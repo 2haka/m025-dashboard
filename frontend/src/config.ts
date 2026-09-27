@@ -6,4 +6,6 @@ export const config = {
   staleMs: Number(import.meta.env.VITE_STALE_MS ?? 3000),
   /** Spec 3 limit (ms). */
   spec3LimitMs: 2000,
+  /** IS1 limit (ms): helmet change shown on the dashboard within this time. */
+  is1LimitMs: 5000,
 } as const;
