@@ -5,9 +5,9 @@ Team M025 · Helmet–Tool Safety Interlock · ICS subsystem.
 | Folder         | Owner  | What it is                                                              |
 |----------------|--------|-------------------------------------------------------------------------|
 | `frontend/`    | Khalid | React + TypeScript dashboard (Vite)                                     |
-| `backend/`     | Ayman  | Real Node/Express backend (MQTT → MongoDB → WebSocket) — to be added     |
+| `backend/`     | Ayman  | Real backend: MQTT → MongoDB → WebSocket/REST (see `backend/README.md`) |
 | `mock-server/` | shared | Fake backend with simulated helmets, same contract as the real one      |
-| `docs/`        | shared | `contract.md` (backend ⇄ frontend), `ppr-ics-plan.md` (PPR evidence)     |
+| `docs/`        | shared | `contract.md`, `ppr-ics-plan.md`, `integration-day.md` (helmet test checklist) |
 
 ## Requirements
 
@@ -30,6 +30,18 @@ While it runs, type in the same terminal and press Enter to drive the simulated 
 | `1`/`2` | Toggle helmet H-01 / H-02 (Worn ⇄ Removed)    |
 | `d1`/`d2` | Drop / restore link of H-01 / H-02         |
 | `a`     | Random events on/off                         |
+
+## Run with the real backend + helmet
+
+One-time setup (MongoDB etc.): `backend/README.md`. Then:
+
+```bash
+npm run dev:real     # backend (:4000) + dashboard (:5173)
+npm run fake-helmet  # optional: fake ESP32 on a real broker (w / r / s / q)
+npm test             # backend unit tests
+```
+
+Checklist for testing with the real helmet: `docs/integration-day.md`.
 
 ## Other scripts
 

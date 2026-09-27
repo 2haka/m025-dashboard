@@ -42,7 +42,13 @@ function reducer(state: State, msg: Msg): State {
       };
     }
     case 'violation': {
-      if (state.violations.some((v) => v.id === msg.violation.id)) return state;
+      // Same id again = update (e.g. relay confirmed TOOL_DISABLED): replace in place.
+      if (state.violations.some((v) => v.id === msg.violation.id)) {
+        return {
+          ...state,
+          violations: state.violations.map((v) => (v.id === msg.violation.id ? msg.violation : v)),
+        };
+      }
       return { ...state, violations: [msg.violation, ...state.violations].slice(0, MAX_VIOLATIONS) };
     }
     case 'violations-loaded': {

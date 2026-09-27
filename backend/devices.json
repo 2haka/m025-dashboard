@@ -1,0 +1,13 @@
+{
+  "_comment": "Which MQTT topics belong to which helmet / worker / tool. Edit here, restart the backend. Set a topic to null if that ESP32 does not publish it yet.",
+  "devices": [
+    {
+      "deviceId": "H-01",
+      "workerId": "W-01",
+      "toolId": "T-01",
+      "helmetTopic": "helmet/pin7",
+      "tempTopic": null,
+      "relayTopic": null
+    }
+  ]
+}

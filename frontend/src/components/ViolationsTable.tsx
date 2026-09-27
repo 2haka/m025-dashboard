@@ -8,6 +8,7 @@ const EVENT_LABEL: Record<string, string> = {
 const ACTION_LABEL: Record<string, string> = {
   TOOL_DISABLED: 'Tool disabled',
   NONE: 'None',
+  UNKNOWN: 'Not reported',
 };
 
 const timeFmt = new Intl.DateTimeFormat('en-GB', {

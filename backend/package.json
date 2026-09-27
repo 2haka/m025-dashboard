@@ -1,0 +1,19 @@
+{
+  "name": "backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "M025 backend: MQTT (ESP32) → validation → MongoDB → WebSocket/REST (dashboard). Implements docs/contract.md",
+  "scripts": {
+    "start": "node src/index.js",
+    "fake-helmet": "node scripts/fake-helmet.js",
+    "test": "node --test \"test/*.test.js\""
+  },
+  "dependencies": {
+    "dotenv": "^18.0.4",
+    "express": "^5.2.1",
+    "mongodb": "^7.6.0",
+    "mqtt": "^5.16.0",
+    "ws": "^8.22.0"
+  }
+}

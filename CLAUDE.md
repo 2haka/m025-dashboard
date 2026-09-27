@@ -15,8 +15,10 @@ worn. This repo is the **ICS part**: the supervisor dashboard.
 | Osama          | EE   | ESP32 firmware, sensors, relay (not in this repo)           |
 | Omar           | ME   | Helmet mounting / enclosure (not in this repo)              |
 
-Work in `frontend/` unless Khalid asks otherwise. Do not write backend code in `backend/` — that is
-Ayman's; suggest changes instead.
+Work in `frontend/` unless Khalid asks otherwise. `backend/` v1 was written by Khalid so the
+dashboard could be connected to the helmet; Ayman is taking it over — keep backend changes small and
+mention them so Ayman is informed. Backend logic lives in pure, tested modules (`payload.js`,
+`deviceHub.js`); run `npm test` after touching them.
 
 ## Architecture (do not mix these up)
 
@@ -37,7 +39,7 @@ ESP32 ──MQTT──► Broker ──► Backend ──WebSocket──► Dash
 - `docs/contract.md` defines every message and endpoint. `frontend/src/types/contract.ts` mirrors
   it (types + runtime guards). Change both in the same commit.
 - A contract change affects Ayman: **flag it to Khalid, don't change it silently.**
-- Until the real backend exists, `mock-server/` implements the contract. Keep it in sync.
+- `backend/` implements the contract for real; `mock-server/` is a quick fake for UI work. Keep both in sync.
 
 ## Safety display rules — never break these
 
@@ -72,6 +74,9 @@ backend and browser run on the **same machine**. Plan: `docs/ppr-ics-plan.md`.
 ```bash
 npm install        # once
 npm run dev        # mock-server :4000 + dashboard :5173 (type 1 / 2 / d1 / d2 / a to drive helmets)
+npm run dev:real   # real backend :4000 + dashboard (needs MongoDB + an MQTT broker, see backend/README.md)
+npm run fake-helmet  # fake ESP32 on a real broker: w / r / s / q
+npm test           # backend unit tests
 npm run build      # typecheck + build — must pass before a task is done
 npm run typecheck
 ```

@@ -2,15 +2,20 @@
   "name": "m025-dashboard",
   "version": "0.1.0",
   "private": true,
-  "description": "Team M025 — Helmet–Tool Safety Interlock: supervisor dashboard (ICS)",
+  "description": "Team M025 \u2014 Helmet\u2013Tool Safety Interlock: supervisor dashboard (ICS)",
   "workspaces": [
     "frontend",
+    "backend",
     "mock-server"
   ],
   "scripts": {
     "dev": "concurrently -k --handle-input -n mock,web -c yellow,cyan \"npm:dev:mock\" \"npm:dev:web\"",
+    "dev:real": "concurrently -k -n backend,web -c magenta,cyan \"npm:dev:backend\" \"npm:dev:web\"",
     "dev:web": "npm run dev -w frontend",
     "dev:mock": "npm run start -w mock-server",
+    "dev:backend": "npm run start -w backend",
+    "fake-helmet": "npm run fake-helmet -w backend --",
+    "test": "npm test -w backend",
     "build": "npm run build -w frontend",
     "typecheck": "npm run typecheck -w frontend"
   },

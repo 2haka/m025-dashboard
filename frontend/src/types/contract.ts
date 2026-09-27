@@ -3,7 +3,8 @@
 export const HELMET_STATES = ['UNKNOWN', 'WORN', 'REMOVED', 'LINK_LOST'] as const;
 export const TOOL_STATES = ['UNKNOWN', 'ENABLED', 'DISABLED'] as const;
 export const EVENT_TYPES = ['HELMET_REMOVED', 'LINK_LOST'] as const;
-export const ACTIONS = ['TOOL_DISABLED', 'NONE'] as const;
+/** UNKNOWN = the tool ESP32 did not report its relay state, so the action is not claimed. */
+export const ACTIONS = ['TOOL_DISABLED', 'NONE', 'UNKNOWN'] as const;
 
 export type HelmetState = (typeof HELMET_STATES)[number];
 export type ToolState = (typeof TOOL_STATES)[number];
@@ -33,6 +34,8 @@ export interface Violation {
   toolId: string;
   eventType: EventType;
   action: Action;
+  /** When the relay report confirmed the action (only for TOOL_DISABLED confirmed after the fact). */
+  actionTs?: string;
   deviceTs: string | null;
   serverTs: string;
 }
